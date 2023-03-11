@@ -4,11 +4,15 @@ from tkinter import filedialog
 import tkinter as tk
 from tkinter import messagebox as MessageBox
 
-nombreArchivo = None
+rutaArchivo = None
+rutaGuardado = None
 
 def abrir_Archivo(cajaTexto):
-    global nombreArchivo
-    nombreArchivo = filedialog.askopenfilename(
+
+    # Variable global para uso en otras funciones
+    global rutaArchivo
+
+    rutaArchivo = filedialog.askopenfilename(
         # Archivos compatibles
         filetypes={
             ("Archivos de texto", "*.txt"),
@@ -18,10 +22,10 @@ def abrir_Archivo(cajaTexto):
     )
 
 
-    if nombreArchivo:
+    if rutaArchivo:
         try:
             # Lectura del archivo y escritura en la caja de texto
-            with open(nombreArchivo, 'r') as lineas:
+            with open(rutaArchivo, 'r') as lineas:
                 content = lineas.read()
 
                 #cajaTexto.delete('1.0', tk.END)
@@ -34,6 +38,7 @@ def abrir_Archivo(cajaTexto):
         MessageBox.showwarning("Alerta", "No se a seleccionado ningun archivo.")
 
 
+# Limpiar la caja de texto
 def limpiar(cajaTexto):
     
     # Confirmacion en caso que se desee limpiar
@@ -48,12 +53,45 @@ def limpiar(cajaTexto):
 def guardar(cajaTexto):
 
     # Verifica que exista una ruta para guardar el archivo
-    if nombreArchivo == None:
+    if rutaArchivo == None:
         MessageBox.showerror("Error", "No se ha encontrado una ruta para guardar el archivo!")
 
-    else:
-        # Abre el archivo y escribe todos los datos existentes en la caja de texto
-        with open(nombreArchivo, 'w') as lineas:
+    # En caso que se haya elegido una nueva ruta para guardar el archivo apartir de ahora guardara en esa ruta
+    elif rutaGuardado != None:
+
+        with open(rutaGuardado, 'w') as lineas:
             contenido = cajaTexto.get("1.0", tk.END)
             lineas.write(contenido)
-            MessageBox.showinfo("Mensaje", "Se guardo correctamente los datos en la ruta: " + str(nombreArchivo))
+            MessageBox.showinfo("Mensaje", "Se guardo correctamente los datos en la ruta: " + str(rutaGuardado))
+
+
+    else:
+        # Abre el archivo y escribe todos los datos existentes en la caja de texto, en caso de que sea la ruta del archivo cargado
+        with open(rutaArchivo, 'w') as lineas:
+            contenido = cajaTexto.get("1.0", tk.END)
+            lineas.write(contenido)
+            MessageBox.showinfo("Mensaje", "Se guardo correctamente los datos en la ruta: " + str(rutaArchivo))
+
+
+# Funcion para elegir el nombre y la ruta para guardar el archivo
+def guardarComo(cajaTexto):
+
+    global rutaGuardado
+
+    rutaGuardado = filedialog.asksaveasfilename(
+         filetypes={
+            ("Todos los archivos", "*.*")
+        }
+    )
+
+    if rutaGuardado:
+
+        with open(rutaGuardado, 'w') as lineas:
+            contenido = cajaTexto.get("1.0", tk.END)
+            lineas.write(contenido)
+            MessageBox.showinfo("Mensaje", "Se guardo correctamente los datos en la ruta: " + str(rutaGuardado))
+
+    else:
+        MessageBox.showwarning("Alerta", "No se completo el guardado")
+
+    

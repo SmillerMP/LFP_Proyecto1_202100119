@@ -11,6 +11,9 @@ def limpiarTexto():
 def guardarTexto():
     guardar(editor)
 
+def guardarComoTexto():
+    guardarComo(editor)
+
 
 
 # Creacion de ventana
@@ -44,7 +47,7 @@ boton_Guardar = tk.Button(ventanaPrincipal, text="Guardar", font=10, padx=45, bg
 boton_Guardar.place(x=600, y=170)
 
 # Guardar Como
-boton_GuardarComo = tk.Button(ventanaPrincipal, text="Guardar Como", font=10, padx=21, bg="#dc7633")
+boton_GuardarComo = tk.Button(ventanaPrincipal, text="Guardar Como", font=10, padx=21, bg="#dc7633", command=guardarComoTexto)
 boton_GuardarComo.place(x=600, y=220)
 
 # Analizar
