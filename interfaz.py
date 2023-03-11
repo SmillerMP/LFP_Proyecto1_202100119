@@ -5,6 +5,11 @@ from funcionesGraficas import *
 def editorTexto():
     abrir_Archivo(editor)
 
+def limpiarTexto():
+    limpiar(editor)
+
+def guardarTexto():
+    guardar(editor)
 
 
 
@@ -35,7 +40,7 @@ boton_Abrir = tk.Button(ventanaPrincipal, text = "Abrir", font = 10, padx=56, bg
 boton_Abrir.place(x=600, y=120)
 
 # Guardar
-boton_Guardar = tk.Button(ventanaPrincipal, text="Guardar", font=10, padx=45, bg="#dc7633")
+boton_Guardar = tk.Button(ventanaPrincipal, text="Guardar", font=10, padx=45, bg="#dc7633", command=guardarTexto)
 boton_Guardar.place(x=600, y=170)
 
 # Guardar Como
@@ -50,9 +55,14 @@ boton_Analizar.place(x=600, y=270)
 boton_Errores = tk.Button(ventanaPrincipal, text="Errores", font=10, padx=47, bg="#dc7633")
 boton_Errores.place(x=600, y=320)
 
+# Limpiar
+boton_Limpiar = tk.Button(ventanaPrincipal, text="Limpiar", font=10, padx=47, bg="#16a085", command=limpiarTexto)
+boton_Limpiar.place(x=600, y=370)
+
+
 # Salir
-boton_Salir = tk.Button(ventanaPrincipal, text="Salir", command=ventanaPrincipal.destroy, font=10, padx=57, bg="#dc7633")
-boton_Salir.place(x=600, y=370)
+boton_Salir = tk.Button(ventanaPrincipal, text="Salir", command=ventanaPrincipal.destroy, font=10, padx=57, bg="#C70039")
+boton_Salir.place(x=800, y=370)
 
 
 # Manual de Usuario
@@ -80,7 +90,6 @@ editor.config(yscrollcommand=scrollbarEditor.set)
 
 # Bloquer el tama;o de la ventana
 ventanaPrincipal.resizable(width=False, height=False)
-
 
 
 
