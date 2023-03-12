@@ -21,7 +21,6 @@ def abrir_Archivo(cajaTexto):
         }
     )
 
-
     if rutaArchivo:
         try:
             # Lectura del archivo y escritura en la caja de texto
@@ -38,6 +37,7 @@ def abrir_Archivo(cajaTexto):
         MessageBox.showwarning("Alerta", "No se a seleccionado ningun archivo.")
 
 
+
 # Limpiar la caja de texto
 def limpiar(cajaTexto):
     
@@ -47,6 +47,7 @@ def limpiar(cajaTexto):
     if confirmacion:
         cajaTexto.delete('1.0', tk.END)
         MessageBox.showinfo("Mensaje", "Limpieza realizada con Exito!")
+
 
 
 # Guardar el texto en la ruta especificada anteriormente
@@ -64,13 +65,13 @@ def guardar(cajaTexto):
             lineas.write(contenido)
             MessageBox.showinfo("Mensaje", "Se guardo correctamente los datos en la ruta: " + str(rutaGuardado))
 
-
     else:
         # Abre el archivo y escribe todos los datos existentes en la caja de texto, en caso de que sea la ruta del archivo cargado
         with open(rutaArchivo, 'w') as lineas:
             contenido = cajaTexto.get("1.0", tk.END)
             lineas.write(contenido)
             MessageBox.showinfo("Mensaje", "Se guardo correctamente los datos en la ruta: " + str(rutaArchivo))
+
 
 
 # Funcion para elegir el nombre y la ruta para guardar el archivo
