@@ -1,0 +1,9 @@
+{
+    "Operacion":"Division"
+    "Valor1": 3
+    "Valor2": [
+        "Operacion":"Suma"
+        "Valor1": 7
+        "Valor2": 3
+    ]
+}

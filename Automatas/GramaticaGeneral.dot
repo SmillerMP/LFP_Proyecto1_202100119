@@ -1,0 +1,26 @@
+digraph Gramatica{ 
+    rankdir = LR 
+    node[shape=circle, fontname="Arial", fontsize=15] 
+
+    S0 -> S1 [label="'{'", fontsize=18]
+    S1 -> S2 [label="'Operacion'", fontsize=18]
+    S2 -> S3 [label="':'", fontsize=18]
+    S3 -> S4 [label="OPERADOR", fontsize=18]
+    S4 -> S5 [label="'Valor1'", fontsize=18]
+    S5 -> S6 [label="':'", fontsize=18]
+    S6 -> S9 [label="DIGITO", fontsize=18]
+    S6 -> S7 [label="'['", fontsize=18]
+    S7 -> S8 [label="S1", fontsize=18]
+    S8 -> S9 [label="']'", fontsize=18]
+    S9 -> S10 [label="'Valor2'", fontsize=18]
+    S10 -> S11 [label="':'", fontsize=18]
+    S11 -> S14 [label="DIGITO", fontsize=18]
+    S11 -> S12 [label="'['", fontsize=18]
+    S12 -> S13 [label="S1", fontsize=18]
+    S13 -> S14 [label="']'", fontsize=18]
+    S14 -> S15 [label="'}'", fontsize=18]
+    S15 -> S0 [label="'},'", fontsize=18]
+
+
+
+}
