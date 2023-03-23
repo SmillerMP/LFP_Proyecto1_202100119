@@ -5,16 +5,18 @@ import math
 
 
 listaArbol = []
+listaConfiguracionDot = []
+
 def analizar():
-    with open("entrada.txt", "r") as lineas:
-        contenido = lineas.read()
+    with open("entrada.txt", "r") as texto:
+        contenido = texto.read()
 
 
 
 
     class Analizador:
         def __init__(self, entrada):
-            self.lineas = entrada 
+            self.texto = entrada 
             self.index = 0 
             self.fila = 1 
             self.columna = 0 
@@ -25,11 +27,11 @@ def analizar():
 
         def _compilador(self):
             estado_actual = 'S0'
-            while self.lineas[self.index] != "":
-                #print(f'CARACTER11 - {self.lineas[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
+            while self.texto[self.index] != "":
+                print(f'CARACTER11 - {self.texto[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
                 
                 # Indentifica los saltos de linea
-                if self.lineas[self.index] == '\n':
+                if self.texto[self.index] == '\n':
                     self.fila += 1
                     self.columna =0
 
@@ -44,7 +46,7 @@ def analizar():
 
                 # S1 -> "Operacion" S2
                 elif estado_actual == 'S1':
-                    if self.lineas[self.index] != " ":
+                    if self.texto[self.index] != " ":
                         a = self._operaciones('S14')
                         estado_actual = a[0]
                         self.contadorGeneral += 1
@@ -53,18 +55,22 @@ def analizar():
                         print('\t',a[1])
                         print('\t*******************************\n')
 
-                # S14 -> }
+                # S14 -> } S15
                 elif estado_actual == 'S14':
                     #print("ESTO DE ULTIMO")
                     estado_actual = self._token('}', 'S14', 'S15')
-                    
 
-                # S15 -> ,
+                # S15 -> , S0
+                #       | Lineas finales
                 elif estado_actual == 'S15':
-                    if self.lineas[self.index] != ' ':
-                        estado_actual = self._token(',', 'S16', 'S0')
+                    if self.texto[self.index] != ' ':
+                        estado_actual = self._token(',', 'S15', 'S0')
+                        # If si error en estado actual, pasa a compile
+                        if estado_actual == "ERROR":
+                            estado_actual = self._lineasFinales('S18')
+
                         
-                elif estado_actual == 'S16':  
+                elif estado_actual == 'S25':  
                     break
                 
 
@@ -72,7 +78,7 @@ def analizar():
                     #print('\t AQUI OCURRIO UN ERROR')
                     estado_actual = 'S0'
                 
-                if self.index < len(self.lineas) - 1:
+                if self.index < len(self.texto) - 1:
                     self.index +=1
                 else:
                     break
@@ -82,32 +88,32 @@ def analizar():
         def _digito(self, estado_siguiente):
             estado_actual = 'D0'
             numero = ""
-            while self.lineas[self.index] != "":
-                #print(f'CARACTER - {self.lineas[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
+            while self.texto[self.index] != "":
+                print(f'CARACTER - {self.texto[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
 
                 # IDENTIFICAR SALTO DE LINEA
-                if self.lineas[self.index] == '\n':
+                if self.texto[self.index] == '\n':
                     self.fila += 1
                     self.columna =0
 
                 
                 # PARA SALIRSE
-                elif str(self.lineas[self.index])== '"':
+                elif str(self.texto[self.index])== '"':
                     self.index -= 1
                     return [estado_siguiente, numero]
-                elif str(self.lineas[self.index])== ']':
+                elif str(self.texto[self.index])== ']':
                     self.index -= 1
                     return [estado_siguiente, numero]
-                elif str(self.lineas[self.index])== '}':
+                elif str(self.texto[self.index])== '}':
                     self.index -= 1
                     return [estado_siguiente, numero]
 
                 # VERIFICAR SI ES DECIMAL
-                elif self.lineas[self.index] == '.':
+                elif self.texto[self.index] == '.':
                     token = "."
                     if estado_actual == 'D2' or estado_actual == 'D0':
                         estado_actual = 'ERROR'
-                    elif self.lineas[self.index] != ' ':
+                    elif self.texto[self.index] != ' ':
                         text = self._juntar(self.index, len(token))
                         if self._analizar(token, text):
                             numero += text
@@ -124,7 +130,7 @@ def analizar():
 
                 # D0 -> [0-9] D0 
                 elif estado_actual == 'D0' or estado_actual == 'D1':
-                    if self.lineas[self.index] != ' ':
+                    if self.texto[self.index] != ' ':
                         estado_actual = 'ERROR'
                         for i in ['0','1','2','3','4','5','6','7','8','9']:
                             token = i
@@ -136,7 +142,7 @@ def analizar():
 
                 # D2 -> [0-9] D2
                 elif estado_actual == 'D2':
-                    if self.lineas[self.index] != ' ':
+                    if self.texto[self.index] != ' ':
                         estado_actual = 'ERROR'
                         for i in ['0','1','2','3','4','5','6','7','8','9']:
                             text = self._juntar(self.index, len(i))
@@ -150,23 +156,107 @@ def analizar():
                     return ['ERROR', -1]
                 
                 #INCREMENTAR POSICION
-                if self.index < len(self.lineas) - 1:
+                if self.index < len(self.texto) - 1:
                     self.index +=1
                 else:
                     break
         
 
+        def _lineasFinales(self, estado_siguiente):
+            estado_actual = 'S16'
+            color = ''
+            valorIzquierdo = ''
+            while self.texto[self.index] != "":
+                print(f'CARACTER OP - {self.texto[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
+                
+                if self.texto[self.index] == '\n':
+                    self.fila += 1
+                    self.columna = 0
+
+                # ************************
+                #     ESTADOS FINALES
+                # ************************
+
+                
+                # S -> "Operacion" S2
+                elif estado_actual == 'S16':
+                    estado_actual = self._token('"Color-Fondo-Nodo"', 'S16', 'S17')
+                    valorIzquierdo = 'Color-Fondo-Nodo'
+                
+                # S2 -> : S3
+                elif estado_actual == 'S17':
+                    estado_actual = self._token(':', 'S17', 'S18')
+
+                elif estado_actual == 'S18':
+                    colores = ['"Rojo"','"Amarillo"', '"Azul"', '"Negro"', '"Verde"', '"Blanco"']
+                    for i in colores:
+                        estado_actual = self._token(i, 'S18', 'S19')
+                        if estado_actual == 'S19':
+                            listaTemp = [valorIzquierdo ,i]
+                            listaConfiguracionDot.append(listaTemp)
+                            break
+                        if estado_actual != 'ERROR':
+                            color = i
+                            break
+                
+                elif estado_actual == 'S19':
+                    estado_actual = self._token('"Color-Fuente-Nodo"', 'S19', 'S20')
+                    valorIzquierdo = 'Color-Fuente-Nodo'
+
+                elif estado_actual == 'S20':
+                    estado_actual = self._token(':', 'S20', 'S21')
+
+                elif estado_actual == 'S21':
+                    colores = ['"Rojo"','"Amarillo"', '"Azul"', '"Negro"', '"Verde"', '"Blanco"']
+                    for i in colores:
+                        estado_actual = self._token(i, 'S21', 'S22')
+                        if estado_actual == 'S22':
+                            listaTemp = [valorIzquierdo ,i]
+                            listaConfiguracionDot.append(listaTemp)
+                            break
+
+                        if estado_actual != 'ERROR':
+                            color = i
+                            break
+
+                elif estado_actual == 'S22':
+                    estado_actual = self._token('"Forma-Nodo"', 'S22', 'S23')
+                    valorIzquierdo = 'Forma-Nodo'
+                
+                # S2 -> : S3
+                elif estado_actual == 'S23':
+                    estado_actual = self._token(':', 'S23', 'S24')
+
+                elif estado_actual == 'S24':
+                    colores = ['"Circulo"','"Cuadrado"', '"Triangulo"']
+                    for i in colores:
+                        estado_actual = self._token(i, 'S24', 'S25')
+                        if estado_actual == 'S25':
+                            listaTemp = [valorIzquierdo ,i]
+                            listaConfiguracionDot.append(listaTemp)
+                            break
+
+                        if estado_actual != 'ERROR':
+                            color = i
+                            break
+                
+                
+                # Incrementar posicion
+                if self.index < len(self.texto) - 1:
+                    self.index +=1
+                else:
+                    break
 
         def _operaciones(self, estado_siguiente):
             estado_actual = 'S1'
             hijo_derecho = ""
             hijo_izquierdo = ""
             operador = ""
-            while self.lineas[self.index] != "":
-                #print(f'CARACTER OP - {self.lineas[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
+            while self.texto[self.index] != "":
+                print(f'CARACTER OP - {self.texto[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
                 
                 # IDENTIFICAR SALTO DE LINEA
-                if self.lineas[self.index] == '\n':
+                if self.texto[self.index] == '\n':
                     self.fila += 1
                     self.columna = 0
 
@@ -233,8 +323,12 @@ def analizar():
                         print('\t',operador ,'(',hijo_izquierdo ,')' )
                         print('\t*******************************\n')
 
+                        self.contadorHijo += 1
+                        resultadoMatematico = self._operecacionesSimples(hijo_izquierdo, operador)
+                        listaTemp = [self.contadorGeneral, self.contadorHijo ,operador, resultadoMatematico, hijo_izquierdo]
+                        listaArbol.append(listaTemp)
                         
-                        return ['S14', self._operecacionesSimples(hijo_izquierdo, operador)]  
+                        return ['S14', resultadoMatematico]  
                     else:
                         estado_actual = self._token('"Valor2"', 'S9', 'S10')
 
@@ -306,11 +400,11 @@ def analizar():
                     print("\tERROR")
                     print("********************************")
                     # ERROR
-                    self._errores(self.lineas[self.index], self.fila, self.columna)
+                    self._errores(self.texto[self.index], self.fila, self.columna)
                     return ['ERROR', -1]
                 
                 # Incrementar posicion
-                if self.index < len(self.lineas) - 1:
+                if self.index < len(self.texto) - 1:
                     self.index +=1
                 else:
                     break
@@ -318,7 +412,7 @@ def analizar():
         
 
         def _token(self, token, estado_actual, estado_siguiente):
-            if self.lineas[self.index] != " ":
+            if self.texto[self.index] != " ":
                 text = self._juntar(self.index, len(token))
                 if self._analizar(token, text):
                     self.index += len(token) - 1
@@ -334,7 +428,7 @@ def analizar():
             try:
                 tmp = ''
                 for i in range(indice, indice + contador):
-                    tmp += self.lineas[i]
+                    tmp += self.texto[i]
                 return tmp
             except:
                 return None
@@ -426,11 +520,5 @@ def analizar():
     a._compilador()
 
 
-def get_listaArbol():
-    return listaArbol
 
 
-# for x in a.ListaErrores:
-#     print(x)
-
-# print(len(a.ListaErrores))
