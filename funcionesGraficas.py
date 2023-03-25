@@ -21,11 +21,16 @@ def analizador(cajaTexto):
     listaErrores = get_listaErrores()
     generadorJson(listaErrores)
 
+
+
     listaArbol = get_listaArbol()
     listaReverso = list(reversed(listaArbol))
 
     listaConfiguracionDot = get_listaConfiguracionDot()
 
+    print(listaErrores)
+    print(listaConfiguracionDot)
+    print(listaReverso)
     creacionArbol(listaReverso, listaConfiguracionDot)
 
     listaArbol = []

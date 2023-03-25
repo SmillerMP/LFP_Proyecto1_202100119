@@ -27,7 +27,7 @@ def creacionArbol(lista, listaConfiguracion):
     colorFuente = color(listaConfiguracion[1][1])
     formaNodo = color(listaConfiguracion[2][1])
 
-    
+ 
 
     grafo_dot = open("Resultados\RESULTADOS_202100119.dot", "w")
     grafo_dot.write('digraph { \n')
@@ -139,6 +139,7 @@ def creacionArbol(lista, listaConfiguracion):
     
 
     grafo_dot.write('\n\n}')
+    grafo_dot.close()
         
     os.system("dot.exe -Tpdf Resultados/RESULTADOS_202100119.dot -o  Resultados/RESULTADOS_202100119.pdf")
 
