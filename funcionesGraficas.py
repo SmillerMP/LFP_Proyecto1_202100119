@@ -3,9 +3,36 @@ from pathlib import *
 from tkinter import filedialog
 import tkinter as tk
 from tkinter import messagebox as MessageBox
+from analizador import *
+from errores import *
+from creacionDot import *
+
 
 rutaArchivo = None
 rutaGuardado = None
+
+
+def analizador(cajaTexto):
+    contenido = cajaTexto.get('1.0', tk.END)
+
+    temp_analisis = Analizador(contenido)
+    temp_analisis._compilador()
+
+    listaErrores = get_listaErrores()
+    generadorJson(listaErrores)
+
+    listaArbol = get_listaArbol()
+    listaReverso = list(reversed(listaArbol))
+
+    listaConfiguracionDot = get_listaConfiguracionDot()
+
+    creacionArbol(listaReverso, listaConfiguracionDot)
+
+    listaArbol = []
+    listaConfiguracionDot = []
+    listaErrores = [] 
+
+
 
 def abrir_Archivo(cajaTexto):
 

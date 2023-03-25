@@ -1,6 +1,7 @@
 import tkinter as tk
 from funcionesGraficas import *
 
+
 # Funciones
 def editorTexto():
     abrir_Archivo(editor)
@@ -13,6 +14,9 @@ def guardarTexto():
 
 def guardarComoTexto():
     guardarComo(editor)
+
+def analizar():
+    analizador(editor)
 
 
 
@@ -51,7 +55,7 @@ boton_GuardarComo = tk.Button(ventanaPrincipal, text="Guardar Como", font=10, pa
 boton_GuardarComo.place(x=600, y=220)
 
 # Analizar
-boton_Analizar = tk.Button(ventanaPrincipal, text="Analizar", font=10, padx=45, bg="#BFDB38")
+boton_Analizar = tk.Button(ventanaPrincipal, text="Analizar", font=10, padx=45, bg="#BFDB38", command=analizar)
 boton_Analizar.place(x=600, y=270)
 
 # Error

@@ -1,42 +1,35 @@
-from analizador import *
+
 import os
 
+def creacionArbol(lista, listaConfiguracion):
 
-analizar()
+    def color(color):
+        limpio = color.replace('"', '')
+        if limpio == 'Rojo':
+            return 'red'
+        
+        elif limpio == 'Amarillo':
+            return 'yellow'
 
+        elif limpio == 'Azul':
+            return 'blue'
+        
+        elif limpio == "Negro":
+            return 'black'
+        
+        elif limpio == 'Verde':
+            return 'green'
+        
+        elif limpio == 'Blanco':
+            return 'white'
+        
+    colorNodo = color(listaConfiguracion[0][1])
+    colorFuente = color(listaConfiguracion[1][1])
+    formaNodo = color(listaConfiguracion[2][1])
 
-listaReverso = list(reversed(listaArbol))
-
-for i in listaReverso:
-    print(i)
-
-def color(color):
-    limpio = color.replace('"', '')
-    if limpio == 'Rojo':
-        return 'red'
     
-    elif limpio == 'Amarillo':
-        return 'yellow'
 
-    elif limpio == 'Azul':
-        return 'blue'
-    
-    elif limpio == "Negro":
-        return 'black'
-    
-    elif limpio == 'Verde':
-        return 'green'
-    
-    elif limpio == 'Blanco':
-        return 'white'
-    
-colorNodo = color(listaConfiguracionDot[0][1])
-colorFuente = color(listaConfiguracionDot[1][1])
-formaNodo = color(listaConfiguracionDot[2][1])
-
-def creacionDot(lista):
-
-    grafo_dot = open("RESULTADOS_202100119.dot", "w")
+    grafo_dot = open("Resultados\RESULTADOS_202100119.dot", "w")
     grafo_dot.write('digraph { \n')
     grafo_dot.write('rankdir = TB \n' )
     grafo_dot.write(f'node[shape=circle, style="filled" fontname="Arial", fontsize=12, fontcolor="{colorFuente}", fillcolor="{colorNodo}"] \n\n')
@@ -49,10 +42,9 @@ def creacionDot(lista):
     primero = 0
     
     maximiliano = len(lista)
-    print(maximiliano)
     for x in lista:
-        maximo = listaReverso[primero][1]
-        general = listaReverso[primero][0]
+        maximo = lista[primero][1]
+        general = lista[primero][0]
 
         #print(contador)
         textoLimpio = x[2].replace('"', '')
@@ -148,8 +140,7 @@ def creacionDot(lista):
 
     grafo_dot.write('\n\n}')
         
-    os.system("dot.exe -Tpdf RESULTADOS_202100119.dot -o  RESULTADOS_202100119.pdf")
+    os.system("dot.exe -Tpdf Resultados/RESULTADOS_202100119.dot -o  Resultados/RESULTADOS_202100119.pdf")
 
         
             
-creacionDot(listaReverso)
