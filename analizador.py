@@ -298,14 +298,16 @@ def analizar():
                     if estado_actual == 'ERROR':
                         estado_actual = 'S9'
                         a = self._digito('S9')
+                        print(a)
                         if "ERROR" == a[0]:
                             estado_actual = 'ERROR'
                         elif a[0] == 'S9':
                             hijo_izquierdo = a[1]
-
+ 
                 # S7 -> S1 S8
                 elif estado_actual == 'S7':
                     a = self._operaciones('S8')
+                    print(a)
                     estado_actual = a[0]
                     hijo_izquierdo = a[1]
 
@@ -521,4 +523,4 @@ def analizar():
 
 
 
-
+analizar()

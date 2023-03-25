@@ -1,9 +1,12 @@
 {
-    "Operacion":"Division"
-    "Valor1": 3
-    "Valor2": [
+    "Operacion":"Seno"
+    "Valor1": [
         "Operacion":"Suma"
-        "Valor1": 7
-        "Valor2": 3
+        "Valor1": [
+            "Operacion":"Inverso"
+            "Valor1":75
+        ]
+        "Valor2":5
     ]
+
 }

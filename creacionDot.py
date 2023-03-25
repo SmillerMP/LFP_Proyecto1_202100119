@@ -1,5 +1,6 @@
-
 from analizador import *
+import os
+
 
 analizar()
 
@@ -147,7 +148,7 @@ def creacionDot(lista):
 
     grafo_dot.write('\n\n}')
         
-
+    os.system("dot.exe -Tpdf RESULTADOS_202100119.dot -o  RESULTADOS_202100119.pdf")
 
         
             

@@ -1,5 +1,8 @@
-with open("entrada.txt", "r") as hola:
-        lineas = hola.read()
+with open("entrada.txt", "r") as texto:
+        lineas = texto.read()
+
+print(lineas)
+
 
 class Analizador:
     def __init__(self, entrada:str):
@@ -185,6 +188,7 @@ class Analizador:
             # S7 -> S1 S8
             elif estado_actual == 'S7':
                 a = self._operaciones('S8')
+                print(a)
                 estado_actual = a[0]
                 hijo_izquierdo = a[1]
 

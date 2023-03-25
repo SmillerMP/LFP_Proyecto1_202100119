@@ -2,37 +2,18 @@ digraph {
 rankdir = TB 
 node[shape=circle, style="filled" fontname="Arial", fontsize=12, fontcolor="white", fillcolor="blue"] 
 
-N14 -> N11 
-N14 -> N13 
-N14[label="Suma:
-12823.661"]
-N13 -> N12 
-N13[label="Multiplicacion:
-12827.161"]
-N13 -> V132 
-V132[label="8.61"]
-N12[label="Potencia:
-1489.798"]
-N12 -> V121 
-V121[label="8.89"]
-N12 -> V122 
-V122[label="3.344"]
-N11[label="Resta:
--3.5"]
-N11 -> V111 
-V111[label="6.6"]
-N11 -> V112 
-V112[label="10.1"]
-
-
-//!---------------NUEVO ARBOL ----------------!
-
-N01[label="Multiplicacion:
-48.0"]
+N03 -> N02 
+N03[label="Seno:
+0.105"]
+N02 -> N01 
+N02[label="Suma:
+6.034"]
+N02 -> V021 
+V021[label="7"]
+N01[label="Coseno:
+-0.966"]
 N01 -> V011 
-V011[label="6"]
-N01 -> V012 
-V012[label="8"]
+V011[label="165"]
 
 
 //!---------------NUEVO ARBOL ----------------!
