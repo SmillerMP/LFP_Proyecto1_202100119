@@ -6,6 +6,7 @@ import math
 
 listaArbol = []
 listaConfiguracionDot = []
+ListaErrores = [] 
 
 def analizar():
     with open("entrada.txt", "r") as texto:
@@ -19,8 +20,7 @@ def analizar():
             self.texto = entrada 
             self.index = 0 
             self.fila = 1 
-            self.columna = 0 
-            self.ListaErrores = [] 
+            self.columna = 1 
             self.contadorHijo = 0
             self.contadorGeneral = 0
 
@@ -28,6 +28,7 @@ def analizar():
         def _compilador(self):
             estado_actual = 'S0'
             while self.texto[self.index] != "":
+                self.columna += 1
                 print(f'CARACTER11 - {self.texto[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
                 
                 # Indentifica los saltos de linea
@@ -455,7 +456,7 @@ def analizar():
                 return False
 
         def _errores(self, token, fila, columna):
-            self.ListaErrores.append({"token":token, "fila": fila, "columna":columna})
+            ListaErrores.append({"token":token, "fila": fila, "columna":columna})
 
 
         # Operaciones Matematicas con dos valores a utilizar
@@ -524,3 +525,5 @@ def analizar():
 
 
 analizar()
+for s in ListaErrores:
+    print(s)

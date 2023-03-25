@@ -1,12 +1,9 @@
-{
-    "Operacion":"Seno"
-    "Valor1": [
-        "Operacion":"Suma"
-        "Valor1": [
-            "Operacion":"Inverso"
-            "Valor1":75
-        ]
-        "Valor2":5
-    ]
+   {
+    "Operacion":"Sma"
+    "Valor1": 90
+    "Valor2": 80
 
 }
+"Color-Fondo-Nodo":"Amarillo"
+"Color-Fuente-Nodo":"Rojo"
+"Forma-Nodo":"Circulo"
