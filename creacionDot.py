@@ -29,7 +29,7 @@ def creacionArbol(lista, listaConfiguracion):
 
  
 
-    grafo_dot = open("Resultados\RESULTADOS_202100119.dot", "w")
+    grafo_dot = open("RESULTADOS_202100119.dot", "w")
     grafo_dot.write('digraph { \n')
     grafo_dot.write('rankdir = TB \n' )
     grafo_dot.write(f'node[shape=circle, style="filled" fontname="Arial", fontsize=12, fontcolor="{colorFuente}", fillcolor="{colorNodo}"] \n\n')
@@ -141,7 +141,7 @@ def creacionArbol(lista, listaConfiguracion):
     grafo_dot.write('\n\n}')
     grafo_dot.close()
         
-    os.system("dot.exe -Tpdf Resultados/RESULTADOS_202100119.dot -o  Resultados/RESULTADOS_202100119.pdf")
+    os.system("dot.exe -Tpdf RESULTADOS_202100119.dot -o  RESULTADOS_202100119.pdf")
 
         
             

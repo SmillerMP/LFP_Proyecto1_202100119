@@ -1,18 +1,8 @@
 import math
+from creacionDot import *
 
 
-listaArbol = []
-listaConfiguracionDot = []
-listaErrores = [] 
 
-def get_listaArbol():
-    return listaArbol
-
-def get_listaErrores():
-    return listaErrores
-
-def get_listaConfiguracionDot():
-    return listaConfiguracionDot
 
 
 class Analizador:
@@ -23,6 +13,25 @@ class Analizador:
         self.columna = 1 
         self.contadorHijo = 0
         self.contadorGeneral = 0
+
+        self.listaArbol = []
+        self.listaConfiguracionDot = []
+        self.listaErrores = [] 
+
+
+    def get_listaArbol(self):
+        return self.listaArbol
+
+    def get_listaErrores(self):
+        return self.listaErrores
+
+    def get_listaConfiguracionDot(self):
+        return self.listaConfiguracionDot
+
+    def set_todosLimpios(self):
+        self.listaArbol = []
+        self.listaErrores = []
+        self.listaArbol = []
 
 
     def _compilador(self):
@@ -194,7 +203,7 @@ class Analizador:
                     estado_actual = self._token(i, 'S18', 'S19')
                     if estado_actual == 'S19':
                         listaTemp = [valorIzquierdo ,i]
-                        listaConfiguracionDot.append(listaTemp)
+                        self.listaConfiguracionDot.append(listaTemp)
                         break
                     if estado_actual != 'ERROR':
                         color = i
@@ -213,7 +222,7 @@ class Analizador:
                     estado_actual = self._token(i, 'S21', 'S22')
                     if estado_actual == 'S22':
                         listaTemp = [valorIzquierdo ,i]
-                        listaConfiguracionDot.append(listaTemp)
+                        self.listaConfiguracionDot.append(listaTemp)
                         break
 
                     if estado_actual != 'ERROR':
@@ -234,7 +243,7 @@ class Analizador:
                     estado_actual = self._token(i, 'S24', 'S25')
                     if estado_actual == 'S25':
                         listaTemp = [valorIzquierdo ,i]
-                        listaConfiguracionDot.append(listaTemp)
+                        self.listaConfiguracionDot.append(listaTemp)
                         break
 
                     if estado_actual != 'ERROR':
@@ -327,7 +336,7 @@ class Analizador:
                     self.contadorHijo += 1
                     resultadoMatematico = self._operecacionesSimples(hijo_izquierdo, operador)
                     listaTemp = [self.contadorGeneral, self.contadorHijo ,operador, resultadoMatematico, hijo_izquierdo]
-                    listaArbol.append(listaTemp)
+                    self.listaArbol.append(listaTemp)
                     
                     return ['S14', resultadoMatematico]  
                 else:
@@ -359,7 +368,7 @@ class Analizador:
                         
 
                         listaTemp = [self.contadorGeneral, self.contadorHijo ,operador, resultadoMatematico, hijo_izquierdo, hijo_derecho]
-                        listaArbol.append(listaTemp)
+                        self.listaArbol.append(listaTemp)
                         
                         return [estado_siguiente, resultadoMatematico]
                     
@@ -388,7 +397,7 @@ class Analizador:
                 self.contadorHijo += 1
 
                 listaTemp = [self.contadorGeneral, self.contadorHijo ,operador, resultadoMatematico, hijo_izquierdo, hijo_derecho]
-                listaArbol.append(listaTemp)
+                self.listaArbol.append(listaTemp)
 
                 return [estado_siguiente, resultadoMatematico]  
 
@@ -455,7 +464,7 @@ class Analizador:
             return False
 
     def _errores(self, token, fila, columna):
-        listaErrores.append({"token":token, "fila": fila, "columna":columna})
+        self.listaErrores.append({"token":token, "fila": fila, "columna":columna})
 
 
     # Operaciones Matematicas con dos valores a utilizar
@@ -511,7 +520,18 @@ class Analizador:
 
         resultado = round(resultado, 3)
         return resultado
+    
 
 
+
+# with open('D:\\Samuellllll\\Documentos\\Universidad\CUARTO SEMESTRE\\LENGUAJES FORMALES Y DE PROGRAMACION\\Ejercicios en clase LENGUAJES\\LFP_Proyecto1\\entrada.txt', 'r') as lineas:
+#     contenido = lineas.read()
+
+# temp = Analizador(contenido)
+# temp._compilador()
  
+
+# listaReverso = list(reversed(listaArbol))
+
+# creacionArbol(listaReverso, listaConfiguracionDot)
 

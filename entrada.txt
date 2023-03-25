@@ -1,8 +1,13 @@
-   {
-    "Operacion":"Sma"
+{
+    "Operacion":"Resta"
     "Valor1": 90
     "Valor2": 80
 
+},
+{
+    "Operacion":"Suma"
+    "Valor1": 90
+    "Valor2": 80
 }
 "Color-Fondo-Nodo":"Amarillo"
 "Color-Fuente-Nodo":"Rojo"

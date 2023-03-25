@@ -22,11 +22,11 @@ def generadorJson(lista):
         
 
         # Escribir la lista de diccionarios en un archivo JSON
-        with open('Resultados\ERRORES_202100119.json', 'w') as lineas:
-            json.dump(listaNueva, lineas, indent=4)
+        with open('ERRORES_202100119.json', 'w') as lineas:
+            json.dump(listaNueva, lineas, indent=3)
 
     else:
-        with open('Resultados\ERRORES_202100119.json', 'w') as lineas:
+        with open('ERRORES_202100119.json', 'w') as lineas:
             lineas.write("[\n]")
 
             

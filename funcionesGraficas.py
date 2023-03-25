@@ -18,25 +18,18 @@ def analizador(cajaTexto):
     temp_analisis = Analizador(contenido)
     temp_analisis._compilador()
 
-    listaErrores = get_listaErrores()
-    generadorJson(listaErrores)
+    listaErrores = temp_analisis.get_listaErrores()
 
 
-
-    listaArbol = get_listaArbol()
+    listaArbol = temp_analisis.get_listaArbol()
     listaReverso = list(reversed(listaArbol))
 
-    listaConfiguracionDot = get_listaConfiguracionDot()
+    listaConfiguracionDot = temp_analisis.get_listaConfiguracionDot()
 
-    print(listaErrores)
-    print(listaConfiguracionDot)
-    print(listaReverso)
+    generadorJson(listaErrores)
     creacionArbol(listaReverso, listaConfiguracionDot)
 
-    listaArbol = []
-    listaConfiguracionDot = []
-    listaErrores = [] 
-
+    temp_analisis.set_todosLimpios()
 
 
 def abrir_Archivo(cajaTexto):
