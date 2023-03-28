@@ -11,6 +11,11 @@ from creacionDot import *
 rutaArchivo = None
 rutaGuardado = None
 
+def temasAyuda():
+    os.startfile("Documentos\Temas.pdf")
+
+def visualizarManualTecnico():
+    os.startfile("Documentos\Manua_tecnico.pdf")
 
 def visualizarManualUsuario():
     os.startfile("Documentos\Manual_de_Usuario.pdf")

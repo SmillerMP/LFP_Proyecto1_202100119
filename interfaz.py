@@ -21,6 +21,12 @@ def analizar():
 def visualizarUsuario():
     visualizarManualUsuario()
 
+def visualizarTecnico():
+    visualizarManualTecnico()
+
+def Temas():
+    temasAyuda()
+
 
 # Creacion de ventana
 ventanaPrincipal = tk.Tk()
@@ -75,11 +81,11 @@ boton_ManualUsuario = tk.Button(ventanaPrincipal, text="Manual de Usuario", font
 boton_ManualUsuario.place(x=800, y=120)
 
 # Manual Tecnico
-boton_ManualTec = tk.Button(ventanaPrincipal, text="Manual Tecnico", font=10, padx=20, bg="#BFDB38")
+boton_ManualTec = tk.Button(ventanaPrincipal, text="Manual Tecnico", font=10, padx=20, bg="#BFDB38", command=visualizarTecnico)
 boton_ManualTec.place(x=800, y=170)
 
 # Temas de Ayuda
-boton_TemasAyuda = tk.Button(ventanaPrincipal, text="Temas de Ayuda", font=10, padx=16, bg="#BFDB38")
+boton_TemasAyuda = tk.Button(ventanaPrincipal, text="Temas de Ayuda", font=10, padx=16, bg="#BFDB38", command=Temas)
 boton_TemasAyuda.place(x=800, y=220)
 
 

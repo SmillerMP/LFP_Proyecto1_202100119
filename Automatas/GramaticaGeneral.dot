@@ -1,5 +1,5 @@
 digraph Gramatica{ 
-    rankdir = LR 
+    rankdir = LR
     node[shape=circle, fontname="Arial", fontsize=15] 
 
     S0 -> S1 [label="'{'", fontsize=18]

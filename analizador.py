@@ -2,9 +2,6 @@ import math
 from creacionDot import *
 
 
-
-
-
 class Analizador:
     def __init__(self, entrada):
         self.texto = entrada 
@@ -48,8 +45,7 @@ class Analizador:
             # ************************
             #         ESTADOS
             # ************************
-
-            
+ 
             # S100 -> { S1
             elif estado_actual == 'S100':
                 estado_actual = self._token('{', 'S100', 'S0')
@@ -65,9 +61,9 @@ class Analizador:
                     estado_actual = a[0]
                     self.contadorGeneral += 1
                     self.contadorHijo = 0
-                    # print("\t*****RESULTADO*****")
-                    # print('\t',a[1])
-                    # print('\t*******************************\n')
+                    print("\t*****RESULTADO*****")
+                    print('\t',a[1])
+                    print('\t*******************************\n')
 
             # S14 -> } S15
             elif estado_actual == 'S14':
@@ -85,7 +81,7 @@ class Analizador:
 
                     
             elif estado_actual == 'S25':  
-                estado_actual = self._token('}', 'S25', 'S26')
+                estado_actual = self._token('}', 'S25', 'S2')
             
 
             if estado_actual == 'ERROR':
@@ -192,12 +188,10 @@ class Analizador:
             # ************************
 
             
-            # S -> "Operacion" S2
             elif estado_actual == 'S16':
                 estado_actual = self._token('"Color-Fondo-Nodo"', 'S16', 'S17')
                 valorIzquierdo = 'Color-Fondo-Nodo'
-            
-            # S2 -> : S3
+
             elif estado_actual == 'S17':
                 estado_actual = self._token(':', 'S17', 'S18')
 
@@ -350,7 +344,7 @@ class Analizador:
                 estado_actual = self._token(':', 'S10', 'S11')
 
             # S11 -> DIGITO S14 
-            #    | ] S12
+            #    | [ S12
             elif estado_actual == 'S11':
                 estado_actual = self._token('[','S11','S12')
                 if estado_actual == 'ERROR':
@@ -387,15 +381,16 @@ class Analizador:
                 if "ERROR" == a[0]:
                     estado_actual = 'ERROR'
 
-            # S13 -> } S14
+            # S13 -> ] S14
             elif estado_actual == 'S13':
                 estado_actual = self._token(']','S13','S14')
 
+                
                 # Realiza la operacion con 2 valores
                 # print("\t*****OPERACION ARITMETICA*****")
                 # print('\t',hijo_izquierdo , operador, hijo_derecho)
                 # print('\t*******************************\n')
-
+                
                 resultadoMatematico = self._operecacionesDobles(hijo_izquierdo, hijo_derecho, operador)
                 self.contadorHijo += 1
 
@@ -460,7 +455,7 @@ class Analizador:
                     #print('ERROR1')
                     return False
                 
-            #print(f'********** ENCONTRE - {tokem_tmp} ***************')
+            print(f'********** ENCONTRE - {tokem_tmp} ***************')
             return True
         except:
             #print('ERROR2')
@@ -523,6 +518,10 @@ class Analizador:
 
         resultado = round(resultado, 4)
         return resultado
+    
+    def printear(self):
+        for x in self.listaErrores:
+            print(x)
     
 
 
