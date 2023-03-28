@@ -32,7 +32,6 @@ def analizador(cajaTexto):
     temp_analisis._compilador()
 
     listaErrores = temp_analisis.get_listaErrores()
-    print(listaErrores)
 
 
     listaArbol = temp_analisis.get_listaArbol()

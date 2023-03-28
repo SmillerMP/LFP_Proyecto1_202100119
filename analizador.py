@@ -65,6 +65,14 @@ class Analizador:
                     print('\t',a[1])
                     print('\t*******************************\n')
 
+                    if a[1] == -1:
+                        for z in self.listaArbol:
+                            print(self.contadorGeneral)
+                            if self.contadorGeneral == z[0]:
+                                self.listaArbol.remove(z)
+
+                    
+
             # S14 -> } S15
             elif estado_actual == 'S14':
                 #print("ESTO DE ULTIMO")
@@ -410,7 +418,9 @@ class Analizador:
                 
                 # Guarda los errores
                 self._errores(self.texto[self.index], self.fila, self.columna)
+                        
                 return ['ERROR', -1]
+            
             
             # Incrementar posicion
             if self.index < len(self.texto) - 1:
@@ -455,7 +465,7 @@ class Analizador:
                     #print('ERROR1')
                     return False
                 
-            print(f'********** ENCONTRE - {tokem_tmp} ***************')
+            #print(f'********** ENCONTRE - {tokem_tmp} ***************')
             return True
         except:
             #print('ERROR2')
