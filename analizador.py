@@ -35,7 +35,7 @@ class Analizador:
 
 
     def _compilador(self):
-        estado_actual = 'S0'
+        estado_actual = 'S100'
         while self.texto[self.index] != "":
             self.columna += 1
             #print(f'CARACTER11 - {self.texto[self.index] } | ESTADO - {estado_actual} | FILA - {self.fila}  | COLUMNA - {self.columna}')
@@ -49,6 +49,10 @@ class Analizador:
             #         ESTADOS
             # ************************
 
+            
+            # S100 -> { S1
+            elif estado_actual == 'S100':
+                estado_actual = self._token('{', 'S100', 'S0')
             
             # S0 -> { S1
             elif estado_actual == 'S0':
@@ -81,7 +85,7 @@ class Analizador:
 
                     
             elif estado_actual == 'S25':  
-                break
+                estado_actual = self._token('}', 'S25', 'S26')
             
 
             if estado_actual == 'ERROR':
@@ -273,7 +277,6 @@ class Analizador:
             # ************************
             #         ESTADOS
             # ************************
-
             
             # S1 -> "Operacion" S2
             elif estado_actual == 'S1':
@@ -338,7 +341,7 @@ class Analizador:
                     listaTemp = [self.contadorGeneral, self.contadorHijo ,operador, resultadoMatematico, hijo_izquierdo]
                     self.listaArbol.append(listaTemp)
                     
-                    return ['S14', resultadoMatematico]  
+                    return ['S8', resultadoMatematico]  
                 else:
                     estado_actual = self._token('"Valor2"', 'S9', 'S10')
 
@@ -381,7 +384,7 @@ class Analizador:
                 estado_actual = 'S13'
                 a = self._operaciones('S13')
                 hijo_derecho = a[1]
-                if "ERROR" == a[1]:
+                if "ERROR" == a[0]:
                     estado_actual = 'ERROR'
 
             # S13 -> } S14
@@ -496,7 +499,7 @@ class Analizador:
 
         
 
-        resultado = round(resultado, 3)
+        resultado = round(resultado, 4)
         return resultado
     
     # Operaciones Simples con un solo valor, como Coseno, Seno, Tangente
@@ -518,7 +521,7 @@ class Analizador:
             izquierda = izquierda*(math.pi/180)
             resultado = math.tan(izquierda)
 
-        resultado = round(resultado, 3)
+        resultado = round(resultado, 4)
         return resultado
     
 

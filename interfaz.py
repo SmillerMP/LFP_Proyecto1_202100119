@@ -18,6 +18,8 @@ def guardarComoTexto():
 def analizar():
     analizador(editor)
 
+def visualizarUsuario():
+    visualizarManualUsuario()
 
 
 # Creacion de ventana
@@ -30,7 +32,7 @@ ventanaPrincipal.geometry("1000x600")
 
 # Etiquetas o labels
 # Menu principal
-tituloPrincipal = tk.Label(ventanaPrincipal, text = "Menu Principal", font = ("Bold", 16), bg = "#00425A", fg="white", pady=4)
+tituloPrincipal = tk.Label(ventanaPrincipal, text = "Analizador Lexico LFP", font = ("Bold", 16), bg = "#00425A", fg="white", pady=4)
 tituloPrincipal.pack(fill= tk.X)
 
 titulo_Archivo = tk.Label(ventanaPrincipal, text="Archivo", font = ("Bold", 13), bg = "#1F8A70", padx=50, pady=5)
@@ -58,22 +60,18 @@ boton_GuardarComo.place(x=600, y=220)
 boton_Analizar = tk.Button(ventanaPrincipal, text="Analizar", font=10, padx=45, bg="#BFDB38", command=analizar)
 boton_Analizar.place(x=600, y=270)
 
-# Error
-boton_Errores = tk.Button(ventanaPrincipal, text="Errores", font=10, padx=47, bg="#BFDB38")
-boton_Errores.place(x=600, y=320)
-
 # Limpiar
 boton_Limpiar = tk.Button(ventanaPrincipal, text="Limpiar", font=10, padx=47, bg="#BFDB38", command=limpiarTexto)
-boton_Limpiar.place(x=600, y=370)
+boton_Limpiar.place(x=600, y=320)
 
 
 # Salir
 boton_Salir = tk.Button(ventanaPrincipal, text="Salir", command=ventanaPrincipal.destroy, font=10, padx=57, bg="#1F8A70")
-boton_Salir.place(x=800, y=370)
+boton_Salir.place(x=800, y=550)
 
 
 # Manual de Usuario
-boton_ManualUsuario = tk.Button(ventanaPrincipal, text="Manual de Usuario", font = 10, padx=10, bg="#BFDB38")
+boton_ManualUsuario = tk.Button(ventanaPrincipal, text="Manual de Usuario", font = 10, padx=10, bg="#BFDB38", command=visualizarUsuario)
 boton_ManualUsuario.place(x=800, y=120)
 
 # Manual Tecnico

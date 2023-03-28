@@ -12,13 +12,22 @@ rutaArchivo = None
 rutaGuardado = None
 
 
+def visualizarManualUsuario():
+    os.startfile("Documentos\Manual_de_Usuario.pdf")
+
+
 def analizador(cajaTexto):
     contenido = cajaTexto.get('1.0', tk.END)
+
+    # grafo_dot = open("ERRORES_202100119.json", "w")
+    # grafo_dot.write('[\n]\n')
+    # grafo_dot.close()
 
     temp_analisis = Analizador(contenido)
     temp_analisis._compilador()
 
     listaErrores = temp_analisis.get_listaErrores()
+    print(listaErrores)
 
 
     listaArbol = temp_analisis.get_listaArbol()
@@ -26,8 +35,21 @@ def analizador(cajaTexto):
 
     listaConfiguracionDot = temp_analisis.get_listaConfiguracionDot()
 
-    generadorJson(listaErrores)
-    creacionArbol(listaReverso, listaConfiguracionDot)
+    if not contenido.strip():
+        MessageBox.showerror("Error", "No hay texto por analizar")
+
+    elif (len(listaReverso)) == False:
+        grafo_dot = open("RESULTADOS_202100119.dot", "w")
+        grafo_dot.write('digraph { \n')
+        grafo_dot.write('rankdir = TB \n' )
+        grafo_dot.write('Nulo[label="Nulooo :)"]\n')
+        grafo_dot.write('}\n')
+        grafo_dot.close()
+        os.system("dot.exe -Tpdf RESULTADOS_202100119.dot -o  RESULTADOS_202100119.pdf")
+
+    else:
+        generadorJson(listaErrores)
+        creacionArbol(listaReverso, listaConfiguracionDot)
 
     temp_analisis.set_todosLimpios()
 
